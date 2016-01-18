@@ -1,31 +1,30 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Projects</h1>
-
+<div class="containder">
 <table>
-  <thead>
-    <tr>
-      <th>Project name</th>
-      <th>Project description</th>
-      <th>Project avatar</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.project_name %></td>
-        <td><%= project.project_description %></td>
-        <td><%= image_tag project.project_avatar(:medium) %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+  <% @projects.each do |project| %>
+    <tr>
+      <td><%= link_to "#{project.project_name}", project %></td>
+    </tr>
+    <tr>
+      <td><%= project.project_description %></td>
+    </tr>
+    <tr>
+       <td><%= image_tag project.project_avatar(:medium) %></td>
+    </tr>
+    <tr>
+      <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    </tr>
+    <tr>
+      <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+
 </table>
 
 <br>
 
 <%= link_to 'New Project', new_project_path %>
+</div>
