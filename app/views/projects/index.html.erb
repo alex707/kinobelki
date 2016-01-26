@@ -1,14 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Projects</h1>
-<%= link_to 'New Project', new_project_path %>
-
+<div style="padding-left: 15px;">
+  <%= link_to 'Create New Project', new_project_path, { :class => "btn btn-default" } %>
+</div>
 
 <% @projects.each do |project| %>
-    <%= link_to "#{project.project_name}", project %>
-    <%= project.project_description %>
-    <%= image_tag project.project_avatar(:medium) %>
-    <%= link_to 'Edit', edit_project_path(project) %>
-    <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <div class="field col-sm-7">
+    <h3><%= link_to "#{project.project_name}", project %></h3>
+    <div class="field">
+      <%= image_tag project.project_avatar(:large), { :class => "img-responsive" } %>
+    </div>
+    <div class="field">
+      <%= project.project_description %>
+    </div>
+    <div class="field">
+      <ul>
+        <li><%= link_to 'Edit', edit_project_path(project), { :class => "btn btn-default" } %></li>
+        <li><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></li>
+      </ul>
+    </div>
+  </div>
 <% end %>
 

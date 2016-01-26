@@ -1,6 +1,11 @@
+<div class="col-xs-12 col-sm-8 col-md-7">
 <h1>Editing Project</h1>
-
 <%= render 'form' %>
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+<div class="field">
+  <ul>
+    <li><%= link_to 'Show', @project, class: 'btn btn-default' %></li>
+    <li><%= link_to 'Back', projects_path, class: 'btn btn-default' %></li>
+  <ul>
+</div>
+</div>

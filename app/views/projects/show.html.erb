@@ -1,16 +1,27 @@
+<div class="col-xs-12 col-sm-8 col-md-7">
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <%= @project.project_name %>
-</p>
+<div class="field">
+  <h3><%= @project.project_name %></h3>
+</div>
 
-<p>
+<div class="field">
+  <%= image_tag @project.project_avatar(:large), { :class => "img-responsive" } %>
+</div>
+
+<div class="field">
   <%= @project.project_description %>
-</p>
+</div>
 
-<p>
-  <%= image_tag @project.project_avatar(:medium) %>
-</p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+
+<div class="field">
+  <ul>
+    <li><%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %></li>
+    <li><%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></li>
+    <li><%= link_to 'Main', projects_path, class: 'btn btn-default' %></li>
+  </ul>
+</div>
+
+</div>

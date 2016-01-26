@@ -10,6 +10,14 @@ p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px;
+  /**/
+  padding-left: 0px;
+}
+
+li {
+  list-style-type: none;
+  display: inline;
+  margin-right: 5px;
 }
 
 pre {
@@ -19,7 +27,7 @@ pre {
 }
 
 a {
-  color: #000;
+  /* color: #000; */
 
   &:visited {
     color: #666;
@@ -27,7 +35,7 @@ a {
 
   &:hover {
     color: #fff;
-    background-color: #000;
+    /* background-color: #000; */
   }
 }
 
@@ -70,4 +78,29 @@ div {
     font-size: 12px;
     list-style: square;
   }
+}
+
+/**/
+table {
+  margin-bottom: 20px;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
