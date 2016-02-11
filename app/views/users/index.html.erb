@@ -1,0 +1,14 @@
+<div style="padding-left: 15px;">
+  <p id="notice"><%= notice %></p>
+</div>
+
+<% @users.each do |user| %>
+  <div class="field col-sm-7 col-md-7">
+    <div class="field">
+      <h3><%= link_to "#{user.email}", user %></h3>
+    </div>
+    <div class="field">
+      <%= image_tag user.user_avatar(:medium), { :class => "img-responsive" } %>
+    </div>
+  </div>
+<% end %>

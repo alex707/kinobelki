@@ -20,6 +20,13 @@ li {
   margin-right: 5px;
 }
 
+li_error {
+  display: list-item;
+  padding-left: 25px;
+  list-style-type: circle;
+  list-style-position: inside;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
@@ -49,12 +56,15 @@ div {
   color: green;
 }
 
+/*
 .field_with_errors {
   padding: 2px;
-  background-color: red;
+  background-color: blue;
   display: table;
 }
+*/
 
+/*
 #error_explanation {
   width: 450px;
   border: 2px solid red;
@@ -79,6 +89,7 @@ div {
     list-style: square;
   }
 }
+*/
 
 /**/
 table {

@@ -11,9 +11,9 @@
 <!-- I dont understand how it works -->
 <nav class="navbar navbar-default" role="navigation">
   <div class="container">  
-    <div class="navbar-header">
+    <div class="navbar-header navbar-left">
 
-      <a class="navbar-brand" href="/projects">Projects</a>
+      <!-- <a class="navbar-brand" href="/projects">Projects</a> -->
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
@@ -24,18 +24,26 @@
     </div>
     
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+    <div class="collapse navbar-collapse navbar-left" id="navbar-collapse-1">
      
-      <ul class="nav navbar-nav navbar-left">
-        <li><a href="/projects">Link</a></li>
-        <li><a href="/projects">Link</a></li>
+      <ul class="nav navbar-nav">
+        <li><a href="/projects">Projects</a></li>
+        <li><a href="/users">Users</a></li>
+        
+        <% if user_signed_in? %>
+          <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Settings", edit_user_registration_path %></li>
+        <% else %>
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
+          <li><%= link_to "Sign in", new_user_session_path %></li>
+        <% end %>
       </ul>
 
     </div>
   </div>
     <!-- /.navbar-collapse -->
 
-</nav>      
+</nav>   
 
 <!--
 <nav class="navbar navbar-default">
@@ -44,13 +52,13 @@
     <div class="navbar-header">
       <a class="navbar-brand" href="/projects">Projects</a>
       <a class="navbar-brand" href="/projects">Users</a>
-      <a class="navbar-brand" href="/projects">Search</a>
+      <a class="navbar-brand navbar-right" href="/projects">Search</a>
     </div>
+<p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
 
   </div>
 </nav>
 -->
-
 
 <div class="container">
   <%= yield %>

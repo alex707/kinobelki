@@ -36,20 +36,23 @@ $(document).ready( function() {
   <% end %>
 
   <div class="field">
-    <%= f.label :project_name, :class => 'col-sm-4 control-label' %><br>
-    <%= f.text_field :project_name, :class => 'form-control', :placeholder => 'Project name'  %>
+    <%= f.label :project_name, :class => 'control-label' %><br>
+    <%= f.text_field :project_name, :class => 'form-control', :placeholder => 'Project name' %>
   </div>
   <div class="field">
-    <%= f.label :project_description, :class => 'col-sm-4 control-label' %><br>
+    <%= f.label :project_description, :class => 'control-label' %><br>
     <%= f.text_area :project_description, :class => 'form-control', :placeholder => 'Project description', :rows => '9' %>
   </div>
   <div class="form-group">
-    <%= f.label :project_avatar, :class => 'col-sm-4 control-label'%><br>
+    <%= f.label :project_avatar, :class => 'control-label'%><br>
+    <% f.file_field :project_avatar %>
     <div class="input-group" style="width: 100%;">
       <span class="input-group-btn">
+
         <span class="btn btn-default btn-file">
           Browse&hellip; <input type="file" name="project[project_avatar]" id="project_project_avatar">
         </span>
+
       </span>
       <input type="text" class="form-control" readonly>
     </div>

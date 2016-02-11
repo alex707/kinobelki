@@ -1,0 +1,103 @@
+<style>
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+</style>
+
+<script>
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+</script>
+
+<div class="col-xs-12 col-sm-7 col-md-7">
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email, :class => 'control-label' %>
+    <%= f.email_field :email, autofocus: true, :class => 'form-control', :placeholder => 'User Email' %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+    <div class="form-group">
+      <%= f.label :user_avatar, :class => 'control-label' %>
+      <% f.file_field :user_avatar %>
+
+      <div class="input-group" style="width: 100%;">
+        <span class="input-group-btn">
+          <span class="btn btn-default btn-file">
+            Browse&hellip; <input type="file" name="user[user_avatar]" id="user_user_avatar">
+          </span>
+        </span>
+        <input type="text" class="form-control" disabled>
+      </div>
+    </div>
+
+  <div class="field">
+    <%= f.label :password, :class => 'control-label' %> <i>(leave blank if you don't want to change it)</i>
+    <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, :class => 'control-label' %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i>
+    <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update", :class => 'btn btn-default' %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-default' %></p>
+
+<%= link_to "Back", :back, :class => 'field' %>

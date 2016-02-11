@@ -1,4 +1,9 @@
 ---
+:User:
+  :user_avatar:
+  - :large
+  - :medium
+  - :thumb
 :Project:
   :project_avatar:
   - :large
