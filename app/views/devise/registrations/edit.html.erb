@@ -54,6 +54,11 @@ $(document).ready( function() {
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :user_nickname, :class => 'control-label' %>
+    <%= f.text_field :usernick, autofocus: true, :class => 'form-control', :placeholder => 'User Nickname' %>
+  </div>
+
+  <div class="field">
     <%= f.label :email, :class => 'control-label' %>
     <%= f.email_field :email, autofocus: true, :class => 'form-control', :placeholder => 'User Email' %>
   </div>

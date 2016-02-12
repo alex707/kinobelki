@@ -52,6 +52,11 @@ $(document).ready( function() {
   
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
+
+    <div class="field">
+      <%= f.label :usernick, :class => 'control-label' %>
+      <%= f.email_field :usernick, autofocus: true, :class => 'form-control', :placeholder => 'User Nickname' %>
+    </div>
   
     <div class="field">
       <%= f.label :email, :class => 'control-label' %>
