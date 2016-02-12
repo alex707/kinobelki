@@ -47,6 +47,12 @@ $(document).ready( function() {
 });
 </script>
 
+<script>
+function counter () {
+  document.getElementById('desc_length').innerHTML = $('#user_user_description').val().length;
+}
+</script>
+
 <div class="col-xs-12 col-sm-7 col-md-7">
   <h2>Sign up</h2>
   
@@ -62,6 +68,13 @@ $(document).ready( function() {
       <%= f.label :email, :class => 'control-label' %>
       <%= f.email_field :email, autofocus: true, :class => 'form-control', :placeholder => 'User Email' %>
     </div>
+  
+  <div class="field">
+    <%= f.label :user_description, :class => 'control-label' %>
+    <%= f.text_area :user_description, :class => 'form-control', :placeholder => 'User description', :rows => '9', onchange: "counter();", onkeyup: "counter();", onkeydown: "counter();" %>
+  </div>
+ 
+  <i>Max length of description is 300 symbols. Current length: </i><div id="desc_length">0</div>
   
     <div class="field">
       <%= f.label :password, :class => 'control-label' %>

@@ -8,5 +8,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :user_avatar, content_type: /\Aimage\/.*\Z/
 
   validates :usernick, :presence => true, :uniqueness => { :case_sensitive => true }
+
+  validates_length_of :user_description, :maximum => 300
   has_many :projects
 end

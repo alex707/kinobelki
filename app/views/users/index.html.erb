@@ -10,5 +10,8 @@
     <div class="field">
       <%= image_tag user.user_avatar(:medium), { :class => "img-responsive" } %>
     </div>
+    <div class="field">
+      <%= user.user_description %>
+    </div>
   </div>
 <% end %>
