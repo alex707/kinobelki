@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160212162905) do
+ActiveRecord::Schema.define(version: 20160213154004) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "project_name"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20160212162905) do
     t.string   "user_avatar_content_type"
     t.integer  "user_avatar_file_size"
     t.datetime "user_avatar_updated_at"
-    t.string   "usernick"
     t.text     "user_description"
+    t.string   "user_nickname"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
