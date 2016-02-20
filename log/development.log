@@ -3393,3 +3393,21 @@ Processing by ProjectsController#index as HTML
   [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1  [["id", 6]]
   Rendered projects/index.html.erb within layouts/application (6.7ms)
 Completed 200 OK in 109ms (Views: 107.3ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/reviews" for 127.0.0.1 at 2016-02-20 14:25:25 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ReviewsController#index as HTML
+  [1m[35mReview Load (1.2ms)[0m  SELECT "reviews".* FROM "reviews"
+  Rendered reviews/index.html.erb within layouts/application (34.5ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 6]]
+Completed 200 OK in 940ms (Views: 889.0ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/reviews" for 127.0.0.1 at 2016-02-20 16:02:43 +0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by ReviewsController#index as HTML
+  [1m[35mReview Load (0.7ms)[0m  SELECT "reviews".* FROM "reviews"
+  Rendered reviews/index.html.erb within layouts/application (23.7ms)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ?  ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 6]]
+Completed 200 OK in 740ms (Views: 704.3ms | ActiveRecord: 2.7ms)
