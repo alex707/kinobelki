@@ -11,4 +11,5 @@ class User < ActiveRecord::Base
 
   validates_length_of :user_description, :maximum => 300
   has_many :projects
+  has_many :reviews
 end

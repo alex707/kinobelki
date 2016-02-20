@@ -1,0 +1,25 @@
+<script>
+function counter () {
+  document.getElementById('pos_length').innerHTML = $('#review_review_pos').val().length;
+}
+</script>
+
+<div class="col-xs-12 col-sm-7 col-md-7">
+
+<%= form_for(@review) do |f| %>
+  <div class="field">
+    <%= f.label :review_pos, :class => 'control-label' %>
+    <%= f.text_area :review_pos, :class => 'form-control', :placeholder => 'Positive review', :rows => '9', onchange: "counter();", onkeyup: "counter()", onkeydown: "counter();" %>
+  </div>
+ 
+  <i>Max length of description is 300 symbols. Current length: </i>
+    <div id="pos_legth">0</div>
+ 
+  <div class="field">
+    <%= f.label :review_neg, :class => 'control-label' %>
+    <%= f.text_area :review_neg, :class => 'form-control', :placeholder => 'Negative review', :rows => '9', onchange: "counter();", onkeyup: "counter()", onkeydown: "counter();" %>
+  </div>
+    <%= hidden_field_tag 'projectid', "#{params[:projectid]}"  %>
+
+  <input name="commit" value="Create Review" type="submit" class="btn btn-default">
+<% end %>

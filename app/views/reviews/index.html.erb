@@ -1,0 +1,25 @@
+<div style="padding-left: 15px;">
+  <p id="notice"><%= notice %></p>
+</div>
+
+<div class="field col-sm-7 col-md-7">
+<% @reviews.each do |review| %>
+
+  <div class="field">
+    <%= review.review_pos %>
+  </div>
+
+  <div class="field">
+    <%= review.review_neg %>
+  </div>
+
+  <div class="field">
+    <%= link_to "Author: #{review.user_id}", user_path(review.user_id) %>
+  </div>
+
+  <div class="field">
+    <%= link_to "For post: #{review.project_id}", project_path(review.project_id) %>
+  </div>
+
+<% end %>
+</div>
