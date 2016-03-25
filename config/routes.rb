@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :projects
   resources :users
   resources :reviews
+  get '/projects/:id/get_old_reviews' => 'projects#get_old_reviews'
+  get '/projects/:id/get_new_reviews' => 'projects#get_new_reviews'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

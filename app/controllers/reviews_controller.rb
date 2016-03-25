@@ -23,7 +23,7 @@ class ReviewsController < ApplicationController
     
     respond_to do |format|
       if @review.save
-        format.html { redirect_to @review, notice: 'review was successfully created.' }
+        format.html { redirect_to Project.find(@review.project_id), notice: 'review was successfully created.' }
       else
         format.html { render :new, notice: 'somethig went wrong X(' }
       end

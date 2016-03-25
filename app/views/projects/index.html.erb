@@ -9,6 +9,10 @@
 <% @projects.each do |project| %>
   <div class="field col-sm-7 col-md-7">
     <h3><%= link_to "#{project.project_name}", project %></h3>
+    <% #couldn't find user with id=1 %>
+    <h4>Author: <%= link_to "#{User.find(project.user_id).user_nickname}", user_path(project.user_id) %></h4>
+    <h4>Review's counter: <%= Review.where(project_id: "#{project.id}").length %></h4>
+    <% logger.debug ":::::::::::::::::::::: #{Review.where(project_id: "#{project.id}")} :::::::::::::::::::" %>
     <div class="field">
       <%= image_tag project.project_avatar(:large), { :class => "img-responsive" } %>
     </div>

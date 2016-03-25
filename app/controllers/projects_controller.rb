@@ -61,6 +61,30 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def get_old_reviews
+    tmp = Review.where(project_id: params[:id])
+    tmp = tmp.where("id < #{params[:last_rev]}").order(created_at: :desc)
+    tmp.to_a.map! { |t|
+      auth_field = {"author" => "#{User.find(t.user_id).user_nickname}"}
+      ltauth_field = {"link_to_author" => "#{user_path(t.user_id)}"}
+      t = JSON::parse(t.to_json).merge(auth_field)
+      t = JSON::parse(t.to_json).merge(ltauth_field)
+    }
+    render json: { success: tmp }
+  end
+
+  def get_new_reviews
+    tmp = Review.where(project_id: params[:id])
+    tmp = tmp.where(" id > #{params[:last_rev]}").order(created_at: :asc)
+    tmp.to_a.map! { |t|
+      auth_field = {"author" => "#{User.find(t.user_id).user_nickname}"}
+      ltauth_field = {"link_to_author" => "#{user_path(t.user_id)}"}
+      t = JSON::parse(t.to_json).merge(auth_field)
+      t = JSON::parse(t.to_json).merge(ltauth_field)
+    }
+    render json: { success: tmp }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
@@ -69,6 +93,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:project_name, :project_description, :project_avatar)
+      params.require(:project).permit(:project_name, :project_description, :project_avatar, :user_id)
     end
 end
