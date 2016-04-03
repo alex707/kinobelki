@@ -22,24 +22,9 @@ function check(){
   $.ajax({
     url: '/projects/' + project_id + '/get_new_reviews',
     data: { last_rev: current_review_id },
-    success: function(result) {
-
-      rev_field = document.getElementById('earler_reviews_field');
-
-      result['success'].map(function (item){
-        var t = document.createElement('div');
-        t.classList.add("field");
-        $(t).attr('data-review-id', item.id);
-        t.innerHTML = item.id + ' Review positive: ' + item.review_pos + ' ' + 'Review negative: ' + item.review_neg + '<br/>' + 'Author: ' + '<a href="' + item.link_to_author + '">' + item.author + '</a>' + '</div>';
-        return t;
-      }).forEach(function (item){
-        rev_field.insertBefore(item, rev_field.firstChild);
-      });
-
-    }
   });
 }
-setInterval (check, 15000);
+setInterval (check, 5000);
 </script>
 <script>
 jQuery (function($) {
@@ -64,34 +49,13 @@ jQuery (function($) {
     });
     var project_id = tmp_arr[0];
 
-
     $.ajax({
       url: '/projects/' + project_id + '/get_old_reviews',
       data: { last_rev: current_review_id },
-      success: function(result) { 
-        rev_field = document.getElementById('more_reviews_field');
-
-        result['success'].map(function (item){
-          var t = document.createElement('div');
-          t.classList.add("field");
-          $(t).attr('data-review-id', item.id);
-          t.id = item.id;
-          t.innerHTML = item.id + ' Review positive: ' + item.review_pos + ' ' + 'Review negative: ' + item.review_neg + '<br/>' + 'Author: ' + '<a href="' + item.link_to_author + '">' + item.author + '</a>' + '</div>';
-          return t;
-        }).forEach(function (item){
-          rev_field.appendChild(item);
-        });
-        $('#load_more_reviews').hide();
-
-      }
     });
-
-
   });
 
 });
-        
-
 </script>
 
 <div class="col-xs-12 col-sm-7 col-md-7">
@@ -113,11 +77,7 @@ jQuery (function($) {
 <div id="earler_reviews_field"></div>
 
 <% Review.where( "project_id = #{@project.id}" ).order(created_at: :desc).limit(7).to_a.each do |r| %>
-  <div class="field" data-review-id="<%= r.id %>">
-    <%= r.id %>&nbsp;Review positive: <%= r.review_pos %>
-    Review negative: <%= r.review_neg %><br/>
-    Author: <%= link_to "#{User.find(r.user_id).user_nickname}", user_path(r.user_id) %>
-  </div>
+  <%= render(r) %>
 <% end %>
 
 <div id="more_reviews_field"></div>

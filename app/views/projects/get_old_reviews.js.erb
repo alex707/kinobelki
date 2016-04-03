@@ -1,0 +1,5 @@
+var rev_field = document.getElementById('more_reviews_field');
+var divTag = document.createElement("div");
+divTag.innerHTML = "<%= j render(@reviews) %>";
+rev_field.appendChild(divTag);
+$('#load_more_reviews').hide();

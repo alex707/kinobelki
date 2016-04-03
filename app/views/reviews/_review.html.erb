@@ -1,0 +1,5 @@
+<div class="field" data-review-id="<%= review.id %>">
+  <%= review.id %>&nbsp;Review positive: <%= review.review_pos %>
+  Review negative: <%= review.review_neg %><br/>
+  Author: <%= link_to "#{User.find(review.user_id).user_nickname}", user_path(review.user_id) %>
+</div>
