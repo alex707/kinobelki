@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :projects
+  resources :projects do
+    resources :comments
+  end
   resources :users
   resources :reviews
   get '/projects/:id/get_old_reviews' => 'projects#get_old_reviews'

@@ -74,6 +74,21 @@ jQuery (function($) {
   <%= @project.project_description %>
 </div>
 
+<h2>Comments</h2>
+<% @project.comments.each do |comment| %>
+  Commenter: <%= comment.commenter %>
+  Comment: <%= comment.body %>
+<% end %>
+
+<h2>Add comments</h2>
+<%= form_for ( [@project, @project.comments.build] ) do |f| %>
+  <%= f.label :commenter %>
+  <%= f.text_field :commenter %>
+  <%= f.label :body %>
+  <%= f.text_field :body %>
+  <%= f.submit %>
+<% end %>
+
 <div id="earler_reviews_field"></div>
 
 <% Review.where( "project_id = #{@project.id}" ).order(created_at: :desc).limit(7).to_a.each do |r| %>

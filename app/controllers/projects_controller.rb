@@ -6,6 +6,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @comment = @project.comments.create(comment_params)
+    #redirect_to_project_path(@project)
   end
 
   def new
@@ -65,6 +67,10 @@ class ProjectsController < ApplicationController
   private
     def set_project
       @project = Project.find(params[:id])
+    end
+
+    def comment_params
+      #params.require(:comment).permit(:commenter, :body)
     end
 
     def project_params
