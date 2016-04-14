@@ -1,0 +1,19 @@
+<script>
+function counter_comm () {
+  document.getElementById('com_length').innerHTML = $('#comment_body').val().length;
+}
+</script>
+
+<h2>Add comment</h2>
+<%= form_for ( [@project, @project.comments.build] ) do |f| %>
+  <div class="field">
+    <%= f.hidden_field :commenter, :value => current_user.id %>
+  </div>
+  <div class="field">
+    <%= f.label :body, :class => 'control-label' %>
+    <%= f.text_field :body, :class => 'form-control', :placeholder => 'Enter comment', onchange: "counter_comm ();", onkeyup: "counter_comm ();", onkeydown: "counter_comm ();" %>
+  </div>
+  <i>Max length of comment is 300 symbols. Current length: </i>
+    <div id="com_length">0</div>
+  <%= f.submit :class => 'btn btn-default' %>
+<% end %>

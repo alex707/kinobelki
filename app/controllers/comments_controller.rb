@@ -2,12 +2,14 @@ class CommentsController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @comment = @project.comments.create(comment_params)
-
     redirect_to project_path(@project)
+  end
 
-    #respond_to do |format|
-    #  format.js
-    #end
+  def destroy
+    @project = Project.find(params[:project_id])
+    @comment = @project.comments.find(params[:id])
+    @comment.destroy
+    redirect_to project_path(@project)
   end
 
 private

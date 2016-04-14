@@ -5,6 +5,6 @@ class Project < ActiveRecord::Base
 
   validates_length_of :project_description, :maximum => 300
   belongs_to :user
-  has_many :reviews
-  has_many :comments
+  has_many :reviews, dependent: :destroy
+  has_many :comments, dependent: :destroy
 end

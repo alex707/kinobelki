@@ -1,0 +1,11 @@
+<div class="field" data-comment-id="<%= comment.id %>">
+  Id: <%= comment.id %>&nbsp;
+  Commenter: <%= comment.commenter %><br/>
+  Comment: <%= comment.body %><br/>
+  <%= link_to('Destroy',
+                         [@project, #idont know how it works!!!
+                             comment],
+                         method: :delete,
+                         data: { confirm: 'Are you shure?' },
+                         class: 'btn btn-default') if user_signed_in? %>
+</div>

@@ -18,7 +18,8 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     
-    @review.project_id = params[:projectid]
+#    @review.project_id = params[:projectid]
+    logger.debug "STAGE reviews#create"
     @review.user_id = current_user.id
     
     respond_to do |format|

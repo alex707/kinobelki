@@ -57,7 +57,6 @@ jQuery (function($) {
 
 });
 </script>
-
 <div class="col-xs-12 col-sm-7 col-md-7">
 
 <p id="notice"><%= notice %></p>
@@ -65,31 +64,22 @@ jQuery (function($) {
 <div data-project-id="<%= @project.id %>" class="field">
   <h3><%= @project.project_name %></h3>
 </div>
-
 <div class="field">
   <%= image_tag @project.project_avatar(:large), { :class => "img-responsive" } %>
 </div>
-
 <div class="field">
   <%= @project.project_description %>
 </div>
 
-<h2>Comments</h2>
-<% @project.comments.each do |comment| %>
-  Commenter: <%= comment.commenter %>
-  Comment: <%= comment.body %>
-<% end %>
+<%= render 'comments/form' if user_signed_in? %>
 
-<h2>Add comments</h2>
-<%= form_for ( [@project, @project.comments.build] ) do |f| %>
-  <%= f.label :commenter %>
-  <%= f.text_field :commenter %>
-  <%= f.label :body %>
-  <%= f.text_field :body %>
-  <%= f.submit %>
-<% end %>
+<h2>Comments</h2>
+<%= render @project.comments %>
 
 <div id="earler_reviews_field"></div>
+
+COMMENTS LOADING!!!!!!!!
+<%= render :partial => 'reviews/form' %>
 
 <% Review.where( "project_id = #{@project.id}" ).order(created_at: :desc).limit(7).to_a.each do |r| %>
   <%= render(r) %>
@@ -103,10 +93,10 @@ jQuery (function($) {
 
 <div class="field">
   <ul>
-    <li><%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' %></li>
-    <li><%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></li>
+    <li><%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' if user_signed_in? %></li>
+    <li><%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
     <li><%= link_to 'Main', projects_path, class: 'btn btn-default' %></li>
-    <li><%= link_to 'Create Review', new_review_path(projectid: "#{@project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
+    <li><%= link_to 'Create Review', new_review_path(id: "#{@project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
   </ul>
 </div>
 
