@@ -71,24 +71,33 @@ jQuery (function($) {
   <%= @project.project_description %>
 </div>
 
-<%= render 'comments/form' if user_signed_in? %>
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#comments_tab">Comments</a></li>
+  <li><a data-toggle="tab" href="#reviews_tab">Reviews</a></li>
+</ul>
 
-<h2>Comments</h2>
-<%= render @project.comments %>
+<div class="tab-content">
 
-<div id="earler_reviews_field"></div>
+  <div id="comments_tab" class="tab-pane fade in active">
+    <%= render 'comments/form' if user_signed_in? %>
+    <h2>Comments</h2>
+      <%= render @project.comments %>
+    dinamic COMMENTS LOADING!!!!!!!!
+  </div>
 
-COMMENTS LOADING!!!!!!!!
-<%= render :partial => 'reviews/form' %>
+  <div id="reviews_tab" class="tab-pane fade">
 
-<% Review.where( "project_id = #{@project.id}" ).order(created_at: :desc).limit(7).to_a.each do |r| %>
-  <%= render(r) %>
-<% end %>
+    <div id="earler_reviews_field"></div>
+    <%= render :partial => 'reviews/form' %>
 
-<div id="more_reviews_field"></div>
+    <% Review.where( "project_id = #{@project.id}" ).order(created_at: :desc).limit(7).to_a.each do |r| %>
+      <%= render(r) %>
+    <% end %>
+    <div id="more_reviews_field"></div>
+    <div class="field">
+      <button class="btn btn-default" id="load_more_reviews" >Load more reviews</button>
+    </div>
 
-<div class="field">
-  <button class="btn btn-default" id="load_more_reviews" >Load more reviews</button>
 </div>
 
 <div class="field">
