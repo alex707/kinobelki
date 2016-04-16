@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :get_old_comments, :get_new_comments]
 
   def index
     @projects = Project.all
@@ -48,8 +48,10 @@ class ProjectsController < ApplicationController
   end
 
   def get_old_reviews
-    @reviews = Review.where(project_id: params[:id])
-    @reviews = @reviews.where("id < #{params[:last_rev]}").order(created_at: :desc)
+    @reviews = Review.where("project_id = ? AND id < ?", params[:id], params[:last_rev]).order(created_at: :desc)
+    
+    #@reviews = Review.where(project_id: params[:id])
+    #@reviews = @reviews.where("id < #{params[:last_rev]}").order(created_at: :desc)
 
     respond_to do |format|
       format.js
@@ -60,6 +62,18 @@ class ProjectsController < ApplicationController
     @reviews = Review.where(project_id: params[:id]).order(created_at: :desc)
     @reviews = @reviews.where("id > #{params[:last_rev]}")
      
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_old_comments
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_new_comments
     respond_to do |format|
       format.js
     end

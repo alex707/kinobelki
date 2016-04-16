@@ -3,7 +3,6 @@ function counter_comm () {
   document.getElementById('com_length').innerHTML = $('#comment_body').val().length;
 }
 </script>
-
 <h2>Add comment</h2>
 <%= form_for ( [@project, @project.comments.build] ) do |f| %>
   <div class="field">

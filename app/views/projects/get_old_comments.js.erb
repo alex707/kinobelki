@@ -1,0 +1,5 @@
+var com_field = document.getElementById('more_comments_field');
+var divTag = document.createElement("div");
+divTag.innerHTML = "<%= j render @project.comments.where('id < ?', params[:last_com]).order(created_at: :desc) %>";
+com_field.appendChild(divTag);
+$('#load_more_comments').hide();

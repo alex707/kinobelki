@@ -1,5 +1,5 @@
 <script>
-function check(){
+function check_new_reviews(){
 
   var tmp_tag_val;
   var arr = new Array();
@@ -24,7 +24,35 @@ function check(){
     data: { last_rev: current_review_id },
   });
 }
-setInterval (check, 5000);
+setInterval (check_new_reviews, 5000);
+</script>
+<script>
+function check_new_comments(){
+
+  var tmp_tag_val;
+  var arr = new Array();
+  $("div").each( function() {
+    tmp_tag_val = $(this).attr("data-comment-id");
+    if (tmp_tag_val != null)
+      arr.push(parseInt(tmp_tag_val));
+  });
+  var current_comment_id = Math.max.apply(Math, arr);
+
+  var tmp_project_id;
+  var tmp_arr = new Array();
+  $("div").each(function() {
+    tmp_project_id = $(this).attr("data-project-id");
+    if (tmp_project_id != null)
+      tmp_arr.push(parseInt(tmp_project_id));
+  });
+  var project_id = tmp_arr[0];
+
+  $.ajax({
+    url: '/projects/' + project_id + '/get_new_comments',
+    data: { last_com: current_comment_id },
+  });
+}
+setInterval (check_new_comments, 5000);
 </script>
 <script>
 jQuery (function($) {
@@ -57,6 +85,37 @@ jQuery (function($) {
 
 });
 </script>
+<script>
+jQuery (function($) {
+
+  $("#load_more_comments").click (function() {
+
+    var tmp_tag_val;
+    var arr = new Array();
+    $("div").each( function () {
+      tmp_tag_val = $(this).attr("data-comment-id");
+      if (tmp_tag_val != null)
+        arr.push(parseInt(tmp_tag_val));
+    });
+    var current_comment_id = Math.min.apply(Math, arr);
+
+    var tmp_project_id;
+    var tmp_arr = new Array();                          
+    $("div").each(function() {
+      tmp_project_id = $(this).attr("data-project-id");
+      if (tmp_project_id != null)
+        tmp_arr.push(parseInt(tmp_project_id));
+    });
+    var project_id = tmp_arr[0];
+
+    $.ajax({
+      url: '/projects/' + project_id + '/get_old_comments',
+      data: { last_com: current_comment_id },
+    });
+  });
+
+});
+</script>
 <div class="col-xs-12 col-sm-7 col-md-7">
 
 <p id="notice"><%= notice %></p>
@@ -79,14 +138,21 @@ jQuery (function($) {
 <div class="tab-content">
 
   <div id="comments_tab" class="tab-pane fade in active">
-    <%= render 'comments/form' if user_signed_in? %>
     <h2>Comments</h2>
-      <%= render @project.comments %>
-    dinamic COMMENTS LOADING!!!!!!!!
+    <div id="earler_comments_field"></div>
+   
+    <%= render 'comments/form' if user_signed_in? %>
+
+    <%= render @project.comments.order(created_at: :desc).limit(7) %>
+    <div id="more_comments_field"></div>
+    <div class="field">
+      <button class="btn btn-default" id="load_more_comments" >Load more comments</button>
+    </div>
+
   </div>
 
   <div id="reviews_tab" class="tab-pane fade">
-
+    <h2>Reviews</h2>
     <div id="earler_reviews_field"></div>
     <%= render :partial => 'reviews/form' %>
 
