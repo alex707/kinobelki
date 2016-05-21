@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+	#dddload_and_authorize_resource :only => [:update, :destroy, :create]
+	before_filter :authenticate_user!, :only => [:update, :destroy, :create, :new]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :get_old_comments, :get_new_comments]
 
   def index
@@ -6,8 +8,6 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    #@comment = @project.comments.create(comment_params)
-    #redirect_to_project_path(@project)
     @review = Review.new
   end
 
@@ -20,7 +20,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new(project_params)
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -49,10 +48,6 @@ class ProjectsController < ApplicationController
 
   def get_old_reviews
     @reviews = Review.where("project_id = ? AND id < ?", params[:id], params[:last_rev]).order(created_at: :desc)
-    
-    #@reviews = Review.where(project_id: params[:id])
-    #@reviews = @reviews.where("id < #{params[:last_rev]}").order(created_at: :desc)
-
     respond_to do |format|
       format.js
     end

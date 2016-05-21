@@ -22,7 +22,9 @@
     <div class="field">
       <ul>
         <li><%= link_to 'Edit', edit_project_path(project), { :class => "btn btn-default" } if user_signed_in? %></li>
-        <li><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
+				<% if can? :destroy, project %>
+        	<li><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
+				<% end %>
         <li><%= link_to 'Create Review', new_review_path(projectid: "#{project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
       </ul>
     </div>

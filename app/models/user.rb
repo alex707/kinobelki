@@ -12,4 +12,24 @@ class User < ActiveRecord::Base
   validates_length_of :user_description, :maximum => 300
   has_many :projects
   has_many :reviews
+
+  belongs_to :role
+
+	def admin?
+		if self != nil
+		if self.role != nil
+			logger.debug "role: #{self.role.name}"
+			self.role.name == "admin"
+		end
+		end
+	end
+
+	def user?
+		if self != nil
+		if self.role != nil
+			logger.debug "role #{self.role.name}"
+			self.role.name == "user"
+		end
+		end
+	end
 end

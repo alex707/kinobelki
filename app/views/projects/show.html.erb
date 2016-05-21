@@ -154,7 +154,7 @@ jQuery (function($) {
   <div id="reviews_tab" class="tab-pane fade">
     <h2>Reviews</h2>
     <div id="earler_reviews_field"></div>
-    <%= render :partial => 'reviews/form' %>
+    <%= render :partial => 'reviews/form' if user_signed_in? %>
 
     <% Review.where( "project_id = #{@project.id}" ).order(created_at: :desc).limit(7).to_a.each do |r| %>
       <%= render(r) %>
