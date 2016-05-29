@@ -1,11 +1,13 @@
 <div class="field" data-comment-id="<%= comment.id %>">
-  Id: <%= comment.id %>&nbsp;
-  Commenter: <%= comment.commenter %><br/>
+	<% logger.debug "___#{comment.id}___________#{comment.user_id}+_" %>
+  Author: <%= link_to "#{User.find(comment.user_id).user_nickname}", user_path(comment.user_id) %><br/>
   Comment: <%= comment.body %><br/>
-  <%= link_to('Destroy',
+  <% if can? :destroy, comment %>
+    <%= link_to('Destroy',
                          [@project, #idont know how it works!!!
                              comment],
                          method: :delete,
                          data: { confirm: 'Are you shure?' },
                          class: 'btn btn-default') if user_signed_in? %>
+  <% end %>
 </div>

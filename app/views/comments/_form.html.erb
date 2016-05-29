@@ -6,7 +6,7 @@ function counter_comm () {
 <h2>Add comment</h2>
 <%= form_for ( [@project, @project.comments.build] ) do |f| %>
   <div class="field">
-    <%= f.hidden_field :commenter, :value => current_user.id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
   </div>
   <div class="field">
     <%= f.label :body, :class => 'control-label' %>

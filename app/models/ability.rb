@@ -10,7 +10,11 @@ class Ability
 		elsif user.user?
       can :read, :all
 			can :create, Project
-			can [:read, :destroy, :update], Project, :user_id => user.id
+			can [:destroy, :update], Project, :user_id => user.id
+			can :create, Review
+			can [:destroy, :update], Review, :user_id => user.id
+			can :create, Comment
+			can [:destroy, :update], Comment, :user_id => user.id
 			Rails.logger.debug "========================user?:== #{user.user?}"
 		else
 			can :read, :all
