@@ -5,6 +5,17 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :reviews
+	resources :conversations, only: [:index, :show, :destroy] do
+		member do
+			post :reply
+    	post :restore
+			post :mark_as_read
+		end
+		collection do
+      delete :empty_trash
+    end
+	end
+	resources :messages, only: [:new, :create]
   get '/projects/:id/get_old_reviews' => 'projects#get_old_reviews'
   get '/projects/:id/get_new_reviews' => 'projects#get_new_reviews'
   get '/projects/:id/get_old_comments' => 'projects#get_old_comments'

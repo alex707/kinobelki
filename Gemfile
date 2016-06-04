@@ -27,6 +27,11 @@ gem 'paperclip'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'cancancan'
+gem 'bootstrap-will_paginate'
+gem 'will_paginate'
+gem 'mailboxer'
+gem 'chosen-rails'
+gem 'jquery-turbolinks'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

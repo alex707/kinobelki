@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+	acts_as_messageable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -14,6 +16,10 @@ class User < ActiveRecord::Base
   has_many :reviews
 
   belongs_to :role
+
+	def mailboxer_email(object)
+		email
+	end
 
 	def admin?
 		if self != nil
