@@ -7,10 +7,10 @@
 		<div class="messages">
 			<% @conversation.receipts_for(current_user).each do |receipt| %>
 				<% message = receipt.message %>
-
-				<% message.sender.user_nickname %>
-					says at <%= message.created_at.strftime("%-d %B %Y, %H:%M:%S")  %>
-				<% message.body %>
+				
+				<%= message.sender.user_nickname %>
+					says at <small><%= message.created_at.strftime("%-d %B %Y, %H:%M:%S")  %></small>
+				<%= message.body %><br/>
 			<% end %>
 		</div>
 	</div>
