@@ -1,5 +1,4 @@
 <% page_header "your conversation" %>
-<%= current_user.user_nickname %>
 <p>
 	<%= link_to 'Start conversation', new_message_path, class: 'btn btn-lg btn-primary' %>
 </p>
@@ -7,8 +6,7 @@
 <div class="row">
   <div class="col-sm-3">
     <ul class="nav nav-pills nav-stacked">
-      <%= mailbox_section 'inbox', @box %>
-      <%= mailbox_section 'sent', @box %>
+      <%= mailbox_section 'conversations', @box %>
       <%= mailbox_section 'trash', @box %>
     </ul>
   </div>

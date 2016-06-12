@@ -8,16 +8,12 @@ class ConversationsController < ApplicationController
 	end
 
 	def index
-		if @box.eql? "inbox"
-			@conversations = @mailbox.inbox
-		elsif @box.eql? "sent"
-			@conversations = @mailbox.sentbox
-			logger.debug "-------------------->#{@mailbox.sentbox.all.to_a}"
-		else
-			@conversations = @mailbox.trash
-		end
-
 		@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 10)
+		if @box.eql? "conversations"
+			@conversations = @mailbox.inbox.paginate(page: params[:page], per_page: 10)
+		else
+			@conversations = @mailbox.trash.paginate(page: params[:page], per_page: 10)
+		end
 	end
 
 	def reply
@@ -63,8 +59,8 @@ class ConversationsController < ApplicationController
 	end
 
 	def get_box
-		if params[:box].blank? or !["inbox", "sent", "trash"].include?(params[:box])
-			params[:box] = 'inbox'
+		if params[:box].blank? or !["conversations", "trash"].include?(params[:box])
+			params[:box] = 'conversations'
 		end
 		@box = params[:box]
 	end

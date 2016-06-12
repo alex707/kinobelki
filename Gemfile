@@ -32,6 +32,7 @@ gem 'will_paginate'
 gem 'mailboxer'
 gem 'chosen-rails'
 gem 'jquery-turbolinks'
+gem 'thin'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
