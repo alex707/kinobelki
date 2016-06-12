@@ -12,7 +12,7 @@
     <% #couldn't find user with id=1 %>
     <h4>Author: <%= link_to "#{User.find(project.user_id).user_nickname}", user_path(project.user_id) %></h4>
     <h4>Review's counter: <%= Review.where(project_id: "#{project.id}").length %></h4>
-    <% logger.debug ":::::::::::::::::::::: #{Review.where(project_id: "#{project.id}")} :::::::::::::::::::" %>
+    <h4>Comment's counter: <%= Comment.where(project_id: "#{project.id}").length %></h4>
     <div class="field">
       <%= image_tag project.project_avatar(:large), { :class => "img-responsive" } %>
     </div>
