@@ -5,10 +5,12 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+		@reply = Reply.new
   end
 
   def show
     @review = Review.new
+		@reply = Reply.new
   end
 
   def new

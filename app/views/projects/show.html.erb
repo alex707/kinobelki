@@ -68,6 +68,11 @@ jQuery (function($) {
     });
     var current_review_id = Math.min.apply(Math, arr);
 
+		if (!isFinite(current_review_id))
+		{
+			return;
+		}
+
     var tmp_project_id;
     var tmp_arr = new Array();                          
     $("div").each(function() {
@@ -98,6 +103,11 @@ jQuery (function($) {
         arr.push(parseInt(tmp_tag_val));
     });
     var current_comment_id = Math.min.apply(Math, arr);
+
+		if (!isFinite(current_comment_id))
+		{
+			return;
+		}
 
     var tmp_project_id;
     var tmp_arr = new Array();                          
@@ -164,7 +174,7 @@ jQuery (function($) {
       <button class="btn btn-default" id="load_more_reviews" >Load more reviews</button>
     </div>
 
-</div>
+  </div>
 
 <div class="field">
   <ul>

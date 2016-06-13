@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :reviews
+	resources :replies
 	resources :conversations, only: [:index, :show, :destroy] do
 		member do
 			post :reply

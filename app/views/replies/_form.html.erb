@@ -1,0 +1,12 @@
+Is it good idea??<br/>
+<%= form_for @reply, remote: true do |f| %>
+	<%= f.radio_button :reply, '2' %>
+	<%= f.label :reply, 'Yes, And I want to join to your team!' %><br/>
+	<%= f.radio_button(:reply, "1") %>
+	<%= f.label :reply, 'Yes, Its a good idea!' %><br/>
+	<%= f.radio_button(:reply, "0") %>
+	<%= f.label :reply, 'No, for my mind it\'s not perspective' %><br/>
+	<%= f.hidden_field :user_id, :value => current_user.id %>
+	<%= f.hidden_field :project_id, :value => project.id %>
+	<%= f.submit 'Reply', remote: true, class: 'btn btn-default' %>
+<% end %>
