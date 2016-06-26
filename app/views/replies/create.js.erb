@@ -1,1 +1,7 @@
-alert("!!!");
+var thanksDiv = document.createElement('div');
+thanksDiv.innerHTML = "Thanks for Your reply!";
+
+var oldDiv = document.getElementById('reply_for_project_<%= @reply.project_id %>');
+document.getElementById('reply_for_project_<%= @reply.project_id %>').replaceChild(thanksDiv, oldDiv.childNodes[3]);
+document.getElementById('reply_for_project_<%= @reply.project_id %>').removeChild(oldDiv.firstChild);
+document.getElementById('reply_for_project_<%= @reply.project_id %>').removeChild(oldDiv.firstChild);

@@ -6,7 +6,12 @@ Is it good idea??<br/>
 	<%= f.label :reply, 'Yes, Its a good idea!' %><br/>
 	<%= f.radio_button(:reply, "0") %>
 	<%= f.label :reply, 'No, for my mind it\'s not perspective' %><br/>
-	<%= f.hidden_field :user_id, :value => current_user.id %>
 	<%= f.hidden_field :project_id, :value => project.id %>
-	<%= f.submit 'Reply', remote: true, class: 'btn btn-default' %>
+	<% if current_user.nil? %> 
+		<%= link_to 'Reply', new_user_session_path, class: 'btn btn-default' %>
+		<% flash[:error] = 'Please, sign in for make reply!' %>
+	<% elsif %>
+		<%= f.hidden_field :user_id, :value => current_user.id %>
+		<%= f.submit 'Reply', remote: true, class: 'btn btn-default' %>
+	<% end %>
 <% end %>

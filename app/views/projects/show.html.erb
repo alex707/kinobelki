@@ -130,14 +130,33 @@ jQuery (function($) {
 
 <p id="notice"><%= notice %></p>
 
-<div data-project-id="<%= @project.id %>" class="field">
-  <h3><%= @project.project_name %></h3>
-</div>
-<div class="field">
-  <%= image_tag @project.project_avatar(:large), { :class => "img-responsive" } %>
-</div>
-<div class="field">
-  <%= @project.project_description %>
+<div id="project_id_<%= @project.id %>">
+
+	<div data-project-id="<%= @project.id %>" class="field">
+  	<h3><%= @project.project_name %></h3>
+	</div>
+	<div class="field">
+	  <%= image_tag @project.project_avatar(:large), { :class => "img-responsive" } %>
+	</div>
+	<div class="field">
+	  <%= @project.project_description %>
+	</div>
+
+	<div class="field">
+		<% if user_signed_in? %>
+			<div id="reply_for_project_<%= @project.id %>">
+	    	<% if !Reply.where("user_id = ? AND project_id = ?", current_user.id, @project.id).first %>
+	      	<% logger.debug "________#{Reply.where("user_id = ? AND project_id = ?", current_user.id, @project.id).first}" %>
+	      	<%= render :partial => 'replies/form', :locals => {:project => @project} %>
+	    	<% else %>
+	    	  Your vote is was counted. Thanks for reply!
+	    	<% end %>
+	  	</div>
+		<% elsif %>
+	    <%= render :partial => 'replies/form', :locals => {:project => @project} %>
+		<% end %>
+	</div>
+
 </div>
 
 <ul class="nav nav-tabs">

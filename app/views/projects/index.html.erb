@@ -7,7 +7,7 @@
 </div>
 
 <% @projects.each do |project| %>
-  <div class="field col-sm-7 col-md-7">
+  <div id="project_id_<%= project.id %>" class="field col-sm-7 col-md-7">
     <h3><%= link_to "#{project.project_name}", project %></h3>
     <% #couldn't find user with id=1 %>
     <h4>Author: <%= link_to "#{User.find(project.user_id).user_nickname}", user_path(project.user_id) %></h4>
@@ -28,10 +28,24 @@
         <li><%= link_to 'Create Review', new_review_path(projectid: "#{project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
       </ul>
     </div>
-	<% if !Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first %>
-		<% logger.debug "________#{Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first}" %>
-		<%= render :partial => 'replies/form', :locals => {:project => project} %>
-	<% end %>
+
+		<div class="field">
+
+		<% if user_signed_in? %>
+			<div id="reply_for_project_<%= project.id %>">
+				<% if !Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first %>
+					<% logger.debug "________#{Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first}" %>
+					<%= render :partial => 'replies/form', :locals => {:project => project} %>
+				<% else %>
+					Your vote is was counted. Thanks for reply!
+				<% end %>
+			</div>
+		<% elsif %>
+				<%= render :partial => 'replies/form', :locals => {:project => project} %>
+		<% end %>
+
+		</div>
+
   </div>
 <% end %>
 
