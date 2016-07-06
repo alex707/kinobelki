@@ -1,0 +1,6 @@
+var ach_field = document.getElementById('more_achievementss_field');
+var divTag = document.createElement("div");
+divTag.innerHTML = "<%= j render @project.achievements.where('id < ?', params[:last_ach]).order(created_at: :desc) %>";
+ach_field.appendChild(divTag);
+$('#load_more_achievements').hide();
+

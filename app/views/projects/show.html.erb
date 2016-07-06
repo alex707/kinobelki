@@ -126,6 +126,42 @@ jQuery (function($) {
 
 });
 </script>
+<script>
+jQuery (function($) {
+
+  $("#load_more_achievements").click (function() {
+
+    var tmp_tag_val;
+    var arr = new Array();
+    $("div").each( function () {
+      tmp_tag_val = $(this).attr("data-achievement-id");
+      if (tmp_tag_val != null)
+        arr.push(parseInt(tmp_tag_val));
+    });
+    var current_achievement_id = Math.min.apply(Math, arr);
+
+		if (!isFinite(current_achievement_id))
+		{
+			return;
+		}
+
+    var tmp_project_id;
+    var tmp_arr = new Array();                          
+    $("div").each(function() {
+      tmp_project_id = $(this).attr("data-project-id");
+      if (tmp_project_id != null)
+        tmp_arr.push(parseInt(tmp_project_id));
+    });
+    var project_id = tmp_arr[0];
+
+    $.ajax({
+      url: '/projects/' + project_id + '/get_old_achievements',
+      data: { last_com: current_achievement_id },
+    });
+  });
+
+});
+</script>
 <div class="col-xs-12 col-sm-7 col-md-7">
 
 <p id="notice"><%= notice %></p>
@@ -160,13 +196,28 @@ jQuery (function($) {
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#comments_tab">Comments</a></li>
+  <li class="active"><a data-toggle="tab" href="#achievements_tab">Achievements</a></li>
+  <li><a data-toggle="tab" href="#comments_tab">Comments</a></li>
   <li><a data-toggle="tab" href="#reviews_tab">Reviews</a></li>
 </ul>
 
 <div class="tab-content">
 
-  <div id="comments_tab" class="tab-pane fade in active">
+
+  <div id="achievements_tab" class="tab-pane fade in active">
+
+    <h2>Achievements</h2>
+    <%= render 'achievements/form' if user_signed_in? && @project.user_id == current_user.id %>
+
+    <%= render @project.achievements.order(created_at: :desc).limit(7) %>
+    <div id="more_achievements_field"></div>
+    <div class="field">
+      <button class="btn btn-default" id="load_more_achievements" >Load more achievements</button>
+    </div>
+
+	</div>
+
+  <div id="comments_tab" class="tab-pane fade">
     <h2>Comments</h2>
     <div id="earler_comments_field"></div>
    

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :projects do
+		resources :achievements
     resources :comments
   end
   resources :users
@@ -17,16 +18,19 @@ Rails.application.routes.draw do
     end
 	end
 	resources :messages, only: [:new, :create]
+  get '/projects/:id/get_old_achievements' => 'projects#get_old_achievements'
   get '/projects/:id/get_old_reviews' => 'projects#get_old_reviews'
   get '/projects/:id/get_new_reviews' => 'projects#get_new_reviews'
   get '/projects/:id/get_old_comments' => 'projects#get_old_comments'
   get '/projects/:id/get_new_comments' => 'projects#get_new_comments'
+
+  root 'projects#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'projects#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

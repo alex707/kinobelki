@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-	#dddload_and_authorize_resource :only => [:update, :destroy, :create]
 	before_filter :authenticate_user!, :only => [:update, :destroy, :create, :new]
   before_action :set_project, only: [:show, :edit, :update, :destroy, :get_old_comments, :get_new_comments]
 
@@ -71,6 +70,12 @@ class ProjectsController < ApplicationController
   end
 
   def get_new_comments
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def get_old_achievements
     respond_to do |format|
       format.js
     end

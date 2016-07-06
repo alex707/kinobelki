@@ -1,0 +1,11 @@
+<div class="field" data-achievement-id="<%= achievement.id %>">
+	<% logger.debug "___#{achievement.id}___________#{achievement.user_id}+_" %>
+	Achivement: <%= achievement.body %><br/>
+	<% if can? :destroy, achievement %>
+		<%= link_to('Destroy', 
+												[@project, achievement], 
+												method: :delete, 
+												data: { confirm: 'Are you shure?' }, 
+												class: 'btn btn-default') if user_signed_in? %>
+	<% end %>
+</div>

@@ -7,4 +7,5 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
+	has_many :achievements, dependent: :destroy
 end
