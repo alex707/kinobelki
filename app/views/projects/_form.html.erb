@@ -52,6 +52,16 @@ function counter () {
  
   <i>Max length of description is 300 symbols. Current length: </i><div id="desc_length">0</div>
 
+	<div class="field">
+		<%= f.label "Ganres:" %><br/>
+		<%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name do |b| %>
+			<div class="collection-check-box">
+				<%= b.check_box %>
+				<%= b.label %>
+			</div>
+		<% end %>
+	</div>
+
  <div class="form-group">
     <%= f.label :project_avatar, :class => 'control-label'%>
     <% f.file_field :project_avatar %>

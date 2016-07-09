@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706182612) do
+ActiveRecord::Schema.define(version: 20160709134829) do
 
   create_table "achievements", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20160706182612) do
   end
 
   add_index "comments", ["project_id"], name: "index_comments_on_project_id"
+
+  create_table "genres", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres_projects", id: false, force: :cascade do |t|
+    t.integer "genre_id",   null: false
+    t.integer "project_id", null: false
+  end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|
     t.integer "unsubscriber_id"

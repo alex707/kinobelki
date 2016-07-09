@@ -3,7 +3,10 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy, :get_old_comments, :get_new_comments]
 
   def index
-    @projects = Project.all
+    #@projects = Project.all
+
+		@search = Project.search(params[:q])
+		@projects = @search.result(distinct: true)
 		@reply = Reply.new
   end
 
@@ -87,6 +90,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:project_name, :project_description, :project_avatar, :user_id)
+      params.require(:project).permit(:project_name, :project_description, :project_avatar, :user_id, genre_ids:[])
     end
 end

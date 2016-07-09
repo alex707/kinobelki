@@ -10,6 +10,11 @@ function check_new_reviews(){
   });
   var current_review_id = Math.max.apply(Math, arr);
 
+  if (!isFinite(current_review_id))
+  {
+    return;
+  }
+
   var tmp_project_id;
   var tmp_arr = new Array();
   $("div").each(function() {
@@ -37,6 +42,11 @@ function check_new_comments(){
       arr.push(parseInt(tmp_tag_val));
   });
   var current_comment_id = Math.max.apply(Math, arr);
+
+	if(!isFinite(current_comment_id))
+	{
+		return;
+	}
 
   var tmp_project_id;
   var tmp_arr = new Array();
@@ -172,12 +182,14 @@ jQuery (function($) {
   	<h3><%= @project.project_name %></h3>
 	</div>
 	<div class="field">
+		<%= @project.genres.map(&:name).sort.join(", ") %>
+	</div>
+	<div class="field">
 	  <%= image_tag @project.project_avatar(:large), { :class => "img-responsive" } %>
 	</div>
 	<div class="field">
 	  <%= @project.project_description %>
 	</div>
-
 	<div class="field">
 		<% if user_signed_in? %>
 			<div id="reply_for_project_<%= @project.id %>">
@@ -203,10 +215,7 @@ jQuery (function($) {
 
 <div class="tab-content">
 
-
   <div id="achievements_tab" class="tab-pane fade in active">
-
-    <h2>Achievements</h2>
     <%= render 'achievements/form' if user_signed_in? && @project.user_id == current_user.id %>
 
     <%= render @project.achievements.order(created_at: :desc).limit(7) %>
@@ -218,7 +227,6 @@ jQuery (function($) {
 	</div>
 
   <div id="comments_tab" class="tab-pane fade">
-    <h2>Comments</h2>
     <div id="earler_comments_field"></div>
    
     <%= render 'comments/form' if user_signed_in? %>
@@ -232,7 +240,6 @@ jQuery (function($) {
   </div>
 
   <div id="reviews_tab" class="tab-pane fade">
-    <h2>Reviews</h2>
     <div id="earler_reviews_field"></div>
     <%= render :partial => 'reviews/form' if user_signed_in? %>
 

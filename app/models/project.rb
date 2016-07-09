@@ -8,4 +8,5 @@ class Project < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
 	has_many :achievements, dependent: :destroy
+	has_and_belongs_to_many :genres
 end

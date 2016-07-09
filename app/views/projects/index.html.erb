@@ -6,11 +6,34 @@
   <%= link_to 'Create New Project', new_project_path, { :class => "btn btn-default" } %>
 </div>
 
+<fieldset class="search-field">
+	<legend>Search in Our Database</legend>
+	<%= search_form_for @search do |f| %>
+    <div class="field">
+      <%= f.label :project_name_cont, "Name contains" %>
+      <%= f.text_field :project_name_cont %>
+    </div>
+
+		<div class="field">
+			<%= f.label "Ganres:" %><br/>
+			<%= f.collection_check_boxes :genres_id_in_any, Genre.all, :id, :name do |b| %>
+				<div class="collection-check-box">
+					<%= b.check_box %>
+					<%= b.label %>
+				</div>
+			<% end %>
+		</div>
+
+		<div class="actions"><%= f.submit "Search" %></div>
+	<% end %>
+</fieldset>
+
 <% @projects.each do |project| %>
   <div id="project_id_<%= project.id %>" class="field col-sm-7 col-md-7">
     <h3><%= link_to "#{project.project_name}", project %></h3>
     <% #couldn't find user with id=1 %>
     <h4>Author: <%= link_to "#{User.find(project.user_id).user_nickname}", user_path(project.user_id) %></h4>
+		<h4>Genres: <%= project.genres.map(&:name).sort.join(", ") %></h4>
     <h4>Review's counter: <%= Review.where(project_id: "#{project.id}").length %></h4>
     <h4>Comment's counter: <%= Comment.where(project_id: "#{project.id}").length %></h4>
     <div class="field">
@@ -19,21 +42,24 @@
     <div class="field">
       <%= project.project_description %>
     </div>
-    <div class="field">
-      <ul>
-        <li><%= link_to 'Edit', edit_project_path(project), { :class => "btn btn-default" } if user_signed_in? %></li>
-				<% if can? :destroy, project %>
-        	<li><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
-				<% end %>
-        <li><%= link_to 'Create Review', new_review_path(projectid: "#{project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
-      </ul>
-    </div>
 
 		<div class="field">
 
 		<% if user_signed_in? %>
+	    <div class="field">
+  	    <ul>
+    	    <li><%= link_to 'Edit', edit_project_path(project), { :class => "btn btn-default" } if user_signed_in? %></li>
+					<% if can? :destroy, project %>
+        		<li><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
+					<% end %>
+        	<li><%= link_to 'Create Review', new_review_path(projectid: "#{project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
+      	</ul>
+    	</div>
+
 			<div id="reply_for_project_<%= project.id %>">
-				<% if !Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first %>
+				<% if project.user_id == current_user.id %>
+					You are can't voting for yours own projects!
+				<% elsif !Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first %>
 					<% logger.debug "________#{Reply.where("user_id = ? AND project_id = ?", current_user.id, project.id).first}" %>
 					<%= render :partial => 'replies/form', :locals => {:project => project} %>
 				<% else %>

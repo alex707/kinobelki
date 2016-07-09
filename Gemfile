@@ -33,6 +33,7 @@ gem 'mailboxer'
 gem 'chosen-rails'
 gem 'jquery-turbolinks'
 gem 'thin'
+gem 'ransack'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
