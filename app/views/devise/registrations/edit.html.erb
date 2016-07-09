@@ -72,6 +72,16 @@ function counter () {
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
+
+	<div class="field">
+		<%= f.label "My Genres:" %>
+		<%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name do |b| %>
+			<div class="collection-check-box">
+				<%= b.check_box %>
+				<%= b.label %>
+			</div>
+		<% end %>
+	</div>
   
   <div class="field">
     <%= f.label :user_description, :class => 'control-label' %>
@@ -79,7 +89,6 @@ function counter () {
   </div>
  
   <i>Max length of description is 300 symbols. Current length: </i><div id="desc_length">0</div>
-
 
     <div class="form-group">
       <%= f.label :user_avatar, :class => 'control-label' %>

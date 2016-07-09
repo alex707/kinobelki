@@ -68,13 +68,23 @@ function counter () {
       <%= f.label :email, :class => 'control-label' %>
       <%= f.email_field :email, autofocus: true, :class => 'form-control', :placeholder => 'User Email' %>
     </div>
+
+		<div class="field">
+			<%= f.label "My Genres:" %><br/>
+			<%= f.collection_check_boxes :genre_ids, Genre.all, :id, :name do |b| %>
+				<div class="collection-check-box">
+					<%= b.check_box %>
+					<%= b.label %>
+				</div>
+			<% end %>
+		</div>
   
-  <div class="field">
-    <%= f.label :user_description, :class => 'control-label' %>
-    <%= f.text_area :user_description, :class => 'form-control', :placeholder => 'User description', :rows => '9', onchange: "counter();", onkeyup: "counter();", onkeydown: "counter();" %>
-  </div>
+  	<div class="field">
+    	<%= f.label :user_description, :class => 'control-label' %>
+    	<%= f.text_area :user_description, :class => 'form-control', :placeholder => 'User description', :rows => '9', onchange: "counter();", onkeyup: "counter();", onkeydown: "counter();" %>
+  	</div>
  
-  <i>Max length of description is 300 symbols. Current length: </i><div id="desc_length">0</div>
+  	<i>Max length of description is 300 symbols. Current length: </i><div id="desc_length">0</div>
   
     <div class="field">
       <%= f.label :password, :class => 'control-label' %>

@@ -7,6 +7,10 @@
 </div>
 
 <div class="field">
+	<%= @user.genre.map(&:name).sort.join(", ") %>
+</div>
+
+<div class="field">
   <%= @user.user_description %>
 </div>
 

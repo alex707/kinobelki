@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160709134829) do
+ActiveRecord::Schema.define(version: 20160709163735) do
 
   create_table "achievements", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -43,6 +43,11 @@ ActiveRecord::Schema.define(version: 20160709134829) do
   create_table "genres_projects", id: false, force: :cascade do |t|
     t.integer "genre_id",   null: false
     t.integer "project_id", null: false
+  end
+
+  create_table "genres_users", id: false, force: :cascade do |t|
+    t.integer "genre_id", null: false
+    t.integer "user_id",  null: false
   end
 
   create_table "mailboxer_conversation_opt_outs", force: :cascade do |t|

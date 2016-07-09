@@ -2,11 +2,34 @@
   <p id="notice"><%= notice %></p>
 </div>
 
+<fieldset class="search-field">
+	<legend>Search..</legend>
+	<%= search_form_for @search do |f| %>
+		<div class="field">
+			<%= f.label :user_nickname_cont, "Name contains" %>
+			<%= f.text_field :user_nickname_cont %>
+		</div>
+
+		<div class="field">
+			<%= f.label "Genres:" %><br/>
+			<%= f.collection_check_boxes :genres_id_in_any, Genre.all, :id, :name do |b| %>
+				<div class="collection-check-box">
+					<%= b.check_box %>
+					<%= b.label %>
+				</div>
+			<% end %>
+		</div>
+
+		<div class="actions"><%= f.submit "Seacrh" %></div>
+	<% end %>
+</fieldset>
+
 <% @users.each do |user| %>
   <div class="field col-sm-7 col-md-7">
     <div class="field">
       <h3><%= link_to "#{user.user_nickname}", user %></h3>
     </div>
+		<h4>Ganres:<%= user.genres.map(&:name).sort.join(", ") %></h4>
     <div class="field">
       <%= image_tag user.user_avatar(:medium), { :class => "img-responsive" } %>
     </div>
