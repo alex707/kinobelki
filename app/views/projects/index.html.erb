@@ -34,6 +34,11 @@
 			<% end %>
 		</div>
 
+		<div class="field">
+			<%= f.label "City:" %><br/>
+			<%= f.collection_select(:city_id_in_any, City.all, :id, :name, :include_blank => "nothing selected") %>
+		</div>
+
 		<div class="actions"><%= f.submit "Search" %></div>
 	<% end %>
 </fieldset>
@@ -55,6 +60,9 @@
 		<div class="field">
 			Needed skills: <%= project.skills.map(&:name).sort.join(", ") %>
 		</div>
+	  <div class="field">
+  	  City: <%= City.find(project.city_id).name if !(project.city_id).nil? %>
+  	</div>
 
 		<div class="field">
 

@@ -193,6 +193,9 @@ jQuery (function($) {
 	<div class="field">
 		Needed skills: <%= @project.skills.map(&:name).sort.join(", ") %>
 	</div>
+	<div class="field">
+		City: <%= City.find(@project.city_id).name %>
+	</div>
 
 	<div class="field">
 		<% if user_signed_in? %>
@@ -259,13 +262,13 @@ jQuery (function($) {
 
   </div>
 
-<div class="field">
-  <ul>
-    <li><%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' if user_signed_in? %></li>
-    <li><%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
-    <li><%= link_to 'Main', projects_path, class: 'btn btn-default' %></li>
-    <li><%= link_to 'Create Review', new_review_path(id: "#{@project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
-  </ul>
-</div>
+	<div class="field">
+		<ul>
+			<li><%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-default' if user_signed_in? %></li>
+			<li><%= link_to 'Destroy', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' if user_signed_in? %></li>
+			<li><%= link_to 'Main', projects_path, class: 'btn btn-default' %></li>
+			<li><%= link_to 'Create Review', new_review_path(id: "#{@project.id}"), class: 'btn btn-default' if user_signed_in? %></li>
+		</ul>
+	</div>
 
 </div>

@@ -101,6 +101,10 @@ function counter () {
  
   <i>Max length of description is 300 symbols. Current length: </i><div id="desc_length">0</div>
 
+  <div class="field">
+    City: <%= f.collection_select(:city_id, City.all, :id, :name) %>
+  </div>
+
     <div class="form-group">
       <%= f.label :user_avatar, :class => 'control-label' %>
       <% f.file_field :user_avatar %>

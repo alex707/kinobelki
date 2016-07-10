@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 	has_and_belongs_to_many :genres
 	has_and_belongs_to_many :skills
 
+	has_one :city
+
 	def mailboxer_email(object)
 		email
 	end

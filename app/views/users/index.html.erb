@@ -30,6 +30,11 @@
       <% end %>
     </div>
 
+    <div class="field">
+      <%= f.label "City:" %><br/>
+      <%= f.collection_select(:city_id_in_any, City.all, :id, :name, :include_blank => "nothing selected") %>
+    </div>
+
 		<div class="actions"><%= f.submit "Seacrh" %></div>
 	<% end %>
 </fieldset>
@@ -46,6 +51,9 @@
 		<h4>Skills:<%= user.skills.map(&:name).sort.join(", ") %></h4>
     <div class="field">
       <%= user.user_description %>
+    </div>
+    <div class="field">
+      City: <%= City.find(user.city_id).name if !(user.city_id).nil? %>
     </div>
 		<% unless current_user == user %>
       <%= link_to 'Send message', new_message_path(to: user.id), class: 'btn btn-default btn-sm' %>
