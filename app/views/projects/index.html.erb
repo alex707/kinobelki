@@ -24,6 +24,16 @@
 			<% end %>
 		</div>
 
+		<div class="field">
+			<%= f.label "Needed skills:" %><br/>
+			<%= f.collection_check_boxes :skills_id_in_any, Skill.all, :id, :name do |b| %>
+				<div class="collection-check-box">
+					<%= b.check_box %>
+					<%= b.label %>
+				</div>
+			<% end %>
+		</div>
+
 		<div class="actions"><%= f.submit "Search" %></div>
 	<% end %>
 </fieldset>
@@ -42,6 +52,9 @@
     <div class="field">
       <%= project.project_description %>
     </div>
+		<div class="field">
+			Needed skills: <%= project.skills.map(&:name).sort.join(", ") %>
+		</div>
 
 		<div class="field">
 

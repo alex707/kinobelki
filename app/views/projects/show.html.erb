@@ -182,7 +182,7 @@ jQuery (function($) {
   	<h3><%= @project.project_name %></h3>
 	</div>
 	<div class="field">
-		<%= @project.genres.map(&:name).sort.join(", ") %>
+		Ganres: <%= @project.genres.map(&:name).sort.join(", ") %>
 	</div>
 	<div class="field">
 	  <%= image_tag @project.project_avatar(:large), { :class => "img-responsive" } %>
@@ -191,9 +191,15 @@ jQuery (function($) {
 	  <%= @project.project_description %>
 	</div>
 	<div class="field">
+		Needed skills: <%= @project.skills.map(&:name).sort.join(", ") %>
+	</div>
+
+	<div class="field">
 		<% if user_signed_in? %>
 			<div id="reply_for_project_<%= @project.id %>">
-	    	<% if !Reply.where("user_id = ? AND project_id = ?", current_user.id, @project.id).first %>
+				<% if @project.user_id == current_user.id %>
+					You are can't voting for yours projects!
+	    	<% elsif !Reply.where("user_id = ? AND project_id = ?", current_user.id, @project.id).first %>
 	      	<% logger.debug "________#{Reply.where("user_id = ? AND project_id = ?", current_user.id, @project.id).first}" %>
 	      	<%= render :partial => 'replies/form', :locals => {:project => @project} %>
 	    	<% else %>

@@ -62,7 +62,17 @@ function counter () {
 		<% end %>
 	</div>
 
- <div class="form-group">
+	<div class="field">
+		<%= f.label "Needed skils:" %><br/>
+		<%= f.collection_check_boxes :skill_ids, Skill.all, :id, :name do |b| %>
+			<div class="collection-check-box">
+				<%= b.check_box %>
+				<%= b.label %>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="form-group">
     <%= f.label :project_avatar, :class => 'control-label'%>
     <% f.file_field :project_avatar %>
 		<% if current_user != nil %>
