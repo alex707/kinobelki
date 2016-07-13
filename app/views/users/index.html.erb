@@ -1,43 +1,63 @@
+<script>
+$('#accordion').on('show.bs.collapse', function () {
+    $('#accordion .in').collapse('hide');
+});
+</script>
+
 <div style="padding-left: 15px;">
   <p id="notice"><%= notice %></p>
 </div>
 
-<fieldset class="search-field">
-	<legend>Search..</legend>
-	<%= search_form_for @search do |f| %>
-		<div class="field">
-			<%= f.label :user_nickname_cont, "Name contains" %>
-			<%= f.text_field :user_nickname_cont %>
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#search_in_u">Search in User's DB</a>
+			</h4>
 		</div>
+		<div id="search_in_u" class="panel-collapse collapse">
+			<div class="panel-body">
+				<fieldset class="search-field">
+					<legend>Search in Our Database</legend>
+					<%= search_form_for @search do |f| %>
+						<div class="field">
+							<%= f.label :user_nickname_cont, "Name contains" %>
+							<%= f.text_field :user_nickname_cont %>
+						</div>
 
-		<div class="field">
-			<%= f.label "Genres:" %><br/>
-			<%= f.collection_check_boxes :genres_id_in_any, Genre.all, :id, :name do |b| %>
-				<div class="collection-check-box">
-					<%= b.check_box %>
-					<%= b.label %>
-				</div>
-			<% end %>
-		</div>
+						<div class="field">
+							<%= f.label "Genres:" %><br/>
+							<%= f.collection_check_boxes :genres_id_in_any, Genre.all, :id, :name do |b| %>
+								<div class="checkbox-inline">
+									<%= b.check_box %>
+									<%= b.label %>
+								</div>
+							<% end %>
+						</div>
 
-    <div class="field">
-      <%= f.label "Skills:" %><br/>
-      <%= f.collection_check_boxes :skills_id_in_any, Skill.all, :id, :name do |b| %>
-        <div class="collection-check-box">
-          <%= b.check_box %>
-          <%= b.label %>
-        </div>
-      <% end %>
+						<div class="field">
+							<%= f.label "Skills:" %><br/>
+							<%= f.collection_check_boxes :skills_id_in_any, Skill.all, :id, :name do |b| %>
+								<div class="checkbox-inline">
+									<%= b.check_box %>
+									<%= b.label %>
+								</div>
+							<% end %>
+						</div>
+
+						<div class="field">
+							<%= f.label "City:" %><br/>
+							<%= f.collection_select(:city_id_in_any, City.all, :id, :name, :include_blank => "nothing selected") %>
+						</div>
+
+						<div class="actions"><%= f.submit "Seacrh" %></div>
+					<% end %>
+				</fieldset>
+      </div>
     </div>
-
-    <div class="field">
-      <%= f.label "City:" %><br/>
-      <%= f.collection_select(:city_id_in_any, City.all, :id, :name, :include_blank => "nothing selected") %>
-    </div>
-
-		<div class="actions"><%= f.submit "Seacrh" %></div>
-	<% end %>
-</fieldset>
+  </div>
+</div>
+<hr>
 
 <% @users.each do |user| %>
   <div class="field col-sm-7 col-md-7">
